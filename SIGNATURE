@@ -1,0 +1,43 @@
+This file contains message digests of all files listed in MANIFEST,
+signed via the Module::Signature module, version 0.55.
+
+To verify the content in this distribution, first make sure you have
+Module::Signature installed, then type:
+
+    % cpansign -v
+
+It will check each file's integrity, as well as the signature's
+validity.  If "==> Signature verified OK! <==" is not displayed,
+the distribution may already have been compromised, and you should
+not run its Makefile.PL or Build.PL.
+
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+SHA1 f21d92c2a4e20cd16f75ddadc84c0fef74cc3ada .cvsignore
+SHA1 c8dc3b51c077fb61b273d4914dc513c93fd75909 Build.PL
+SHA1 aade40fdeea087a288eb29cd063e0e621e2a1167 Changes
+SHA1 b180426d797f04975a46ddee5773747bcd08d5b5 MANIFEST
+SHA1 0f3cc112b9833ea5d71673a09ae73909a2046543 META.yml
+SHA1 47a35ad67b4e0e6b7cdb8e210b8e56f15c824af3 Makefile.PL
+SHA1 57aff52bc9ff95d7d23001ee0fa39e48ec5fd63e README
+SHA1 edd8c061d480082aa53f89e3112feac1975b27a6 lib/Sub/.cvsignore
+SHA1 7766e2b7f0999f43640d750805e19fc521384923 lib/Sub/Mutate.pm
+SHA1 09ee6c9d4bcb8fc90bea6c370f9962b831cc0109 lib/Sub/Mutate.xs
+SHA1 26755b6323d5f4db134bdfe497d182b979e74d45 t/body_type.t
+SHA1 ac4b4e740822fd51411403882b76d4c8ccb0a30a t/closure_role.t
+SHA1 37531a74241b124c25b15fdd5a590e884adfd137 t/is_constant.t
+SHA1 69fbeb4715871dc2bf3225a6e060ef0703ea5850 t/is_debuggable.t
+SHA1 2c15f0865d653db25bc0e0a8ea9ec9c9fd0af593 t/is_lvalue.t
+SHA1 9aaf87aec38ac3b052b14fbe7d402a9dcf571e4f t/is_method.t
+SHA1 0e141eecf3ca4903ef38d9413b5403a9ddb0392f t/pod_cvg.t
+SHA1 74a957cd8b93f25672ecc6aa578a671d084dd343 t/pod_syn.t
+SHA1 2b43110b1be63275c5e27a8cb543e0f09ffb0296 t/prototype.t
+SHA1 7cfdb858935ccbb52fa06574ec850d107f1c5986 t/when_bodied.t
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.9 (GNU/Linux)
+
+iEYEARECAAYFAkqWmagACgkQOV9mt2VyAVGOhwCgg2fL+VPi2qt7hXQDAi8qPD20
+jswAn2zXTWH3xIoqv3EVIu59z6hko2IQ
+=7bx0
+-----END PGP SIGNATURE-----
