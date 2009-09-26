@@ -1,3 +1,12 @@
+version 0.001; 2009-09-26
+
+  * bugfix: in XS, check SvOBJECT before looking at SvSTASH, because
+    the latter isn't guaranteed to be meaningful otherwise
+
+  * in the documentation, fix a badly-worded sentence
+
+  * remove bogus "exit 0" from Build.PL
+
 version 0.000; 2009-08-27
 
   * initial released version

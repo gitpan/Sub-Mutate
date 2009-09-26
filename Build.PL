@@ -5,7 +5,6 @@ use Module::Build;
 
 Module::Build->new(
 	module_name => "Sub::Mutate",
-	dist_version => "0.000",
 	license => "perl",
 	build_requires => {
 		"ExtUtils::CBuilder" => "0.15",
@@ -28,4 +27,4 @@ Module::Build->new(
 	sign => 1,
 )->create_build_script;
 
-exit 0;
+1;

@@ -18,11 +18,13 @@ static SV *safe_av_fetch(AV *av, I32 key)
 
 static void sv_unbless(SV *sv)
 {
-	SV *oldstash = (SV*)SvSTASH(sv);
-	if(!oldstash) return;
-	SvSTASH_set(sv, NULL);
+	SV *oldstash;
+	if(!SvOBJECT(sv)) return;
 	SvOBJECT_off(sv);
-	SvREFCNT_dec(oldstash);
+	if((oldstash = (SV*)SvSTASH(sv))) {
+		SvSTASH_set(sv, NULL);
+		SvREFCNT_dec(oldstash);
+	}
 }
 
 #define sv_is_undef(sv) (SvTYPE(sv) != SVt_PVGV && !SvOK(sv))
@@ -100,7 +102,8 @@ static AV *cv_find_whenbodied(CV *sub)
 	if(SvTYPE((SV*)argav) != SVt_PVAV) return NULL;
 	for(pos = av_len(argav); pos >= 0; pos--) {
 		SV *v = safe_av_fetch(argav, pos);
-		if(SvTYPE(v) == SVt_PVAV && SvSTASH(v) == stash_whenbodied)
+		if(SvTYPE(v) == SVt_PVAV && SvOBJECT(v) &&
+				SvSTASH(v) == stash_whenbodied)
 			return (AV*)v;
 	}
 	return NULL;
@@ -118,7 +121,8 @@ static AV *cv_force_whenbodied(CV *sub)
 	if(SvTYPE((SV*)argav) != SVt_PVAV) goto create_argav;
 	for(pos = av_len(argav); pos >= 0; pos--) {
 		SV *v = safe_av_fetch(argav, pos);
-		if(SvTYPE(v) == SVt_PVAV && SvSTASH(v) == stash_whenbodied)
+		if(SvTYPE(v) == SVt_PVAV && SvOBJECT(v) &&
+				SvSTASH(v) == stash_whenbodied)
 			return (AV*)v;
 	}
 	goto create_whenbodied;

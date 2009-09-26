@@ -42,7 +42,7 @@ package Sub::Mutate;
 use warnings;
 use strict;
 
-our $VERSION = "0.000";
+our $VERSION = "0.001";
 
 use parent "Exporter";
 our @EXPORT_OK = qw(
@@ -66,8 +66,8 @@ reference to a subroutine.  The function operates on the subroutine
 referenced by I<SUB>.
 
 The C<mutate_> functions modify a subroutine in place.  The subroutine's
-identity is not changed, but the identity of the existing subroutine
-object is changed.  All references to the existing subroutine will see
+identity is not changed, but the attributes of the existing subroutine
+object are changed.  All references to the existing subroutine will see
 the new attributes.  Beware of action at a distance.
 
 =over

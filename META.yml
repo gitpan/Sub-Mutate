@@ -1,6 +1,6 @@
 ---
 name: Sub-Mutate
-version: 0.000
+version: 0.001
 author:
   - 'Andrew Main (Zefram) <zefram@fysh.org>'
 abstract: examination and modification of subroutines
@@ -24,7 +24,7 @@ dynamic_config: 0
 provides:
   Sub::Mutate:
     file: lib/Sub/Mutate.pm
-    version: 0.000
+    version: 0.001
 generated_by: Module::Build version 0.31012
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
