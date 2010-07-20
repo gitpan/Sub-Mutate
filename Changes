@@ -1,3 +1,21 @@
+version 0.002; 2010-07-20
+
+  * port to Perl 5.11, supporting new first-class regexp objects in
+    type checking
+
+  * in XS, use PERL_NO_GET_CONTEXT for efficiency
+
+  * include Exporter in dependency list
+
+  * check for required Perl version at runtime
+
+  * in prototype.t, adjust test prototypes to avoid warnings on Perl
+    5.11 and above
+
+  * in Build.PL, explicitly declare configure-time requirements
+
+  * add MYMETA.yml to .cvsignore
+
 version 0.001; 2009-09-26
 
   * bugfix: in XS, check SvOBJECT before looking at SvSTASH, because

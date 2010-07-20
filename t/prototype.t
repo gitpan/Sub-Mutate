@@ -11,8 +11,8 @@ sub tpn_ ();
 sub tpb_ () { }
 sub tpn_d ($);
 sub tpb_d ($) { }
-sub tpn_ad (@$);
-sub tpb_ad (@$) { }
+sub tpn_da ($@);
+sub tpb_da ($@) { }
 
 is sub_prototype(\&tpn_0), undef;
 is sub_prototype(\&tpb_0), undef;
@@ -20,8 +20,8 @@ is sub_prototype(\&tpn_), "";
 is sub_prototype(\&tpb_), "";
 is sub_prototype(\&tpn_d), "\$";
 is sub_prototype(\&tpb_d), "\$";
-is sub_prototype(\&tpn_ad), "\@\$";
-is sub_prototype(\&tpb_ad), "\@\$";
+is sub_prototype(\&tpn_da), "\$\@";
+is sub_prototype(\&tpb_da), "\$\@";
 
 sub t0 { scalar($_[0])."x".scalar(@_) }
 our @t1 = (333);

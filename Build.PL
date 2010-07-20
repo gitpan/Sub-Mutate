@@ -1,3 +1,4 @@
+{ use 5.006; }
 use warnings;
 use strict;
 
@@ -6,6 +7,10 @@ use Module::Build;
 Module::Build->new(
 	module_name => "Sub::Mutate",
 	license => "perl",
+	configure_requires => {
+		"Module::Build" => 0,
+		"perl" => "5.008",
+	},
 	build_requires => {
 		"ExtUtils::CBuilder" => "0.15",
 		"Module::Build" => 0,
@@ -15,6 +20,7 @@ Module::Build->new(
 		"warnings" => 0,
 	},
 	requires => {
+		"Exporter" => 0,
 		"XSLoader" => 0,
 		"parent" => 0,
 		"perl" => "5.008",

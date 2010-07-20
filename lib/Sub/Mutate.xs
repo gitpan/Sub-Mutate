@@ -1,6 +1,13 @@
+#define PERL_NO_GET_CONTEXT 1
 #include "EXTERN.h"
 #include "perl.h"
 #include "XSUB.h"
+
+#define PERL_VERSION_DECIMAL(r,v,s) (r*1000000 + v*1000 + s)
+#define PERL_DECIMAL_VERSION \
+	PERL_VERSION_DECIMAL(PERL_REVISION,PERL_VERSION,PERL_SUBVERSION)
+#define PERL_VERSION_GE(r,v,s) \
+	(PERL_DECIMAL_VERSION >= PERL_VERSION_DECIMAL(r,v,s))
 
 #ifndef CvISXSUB
 # define CvISXSUB(cv) !!CvXSUB(cv)
@@ -10,13 +17,15 @@
 # define SvSTASH_set(sv, stash) (SvSTASH(sv) = (stash))
 #endif /* !SvSTASH_set */
 
-static SV *safe_av_fetch(AV *av, I32 key)
+#define safe_av_fetch(av, key) THX_safe_av_fetch(aTHX_ av, key)
+static SV *THX_safe_av_fetch(pTHX_ AV *av, I32 key)
 {
 	SV **item_ptr = av_fetch(av, key, 0);
 	return item_ptr ? *item_ptr : &PL_sv_undef;
 }
 
-static void sv_unbless(SV *sv)
+#define sv_unbless(sv) THX_sv_unbless(aTHX_ sv)
+static void THX_sv_unbless(pTHX_ SV *sv)
 {
 	SV *oldstash;
 	if(!SvOBJECT(sv)) return;
@@ -27,10 +36,18 @@ static void sv_unbless(SV *sv)
 	}
 }
 
-#define sv_is_undef(sv) (SvTYPE(sv) != SVt_PVGV && !SvOK(sv))
+#define sv_is_glob(sv) (SvTYPE(sv) == SVt_PVGV)
+
+#if PERL_VERSION_GE(5,11,0)
+# define sv_is_regexp(sv) (SvTYPE(sv) == SVt_REGEXP)
+#else /* <5.11.0 */
+# define sv_is_regexp(sv) 0
+#endif /* <5.11.0 */
+
+#define sv_is_undef(sv) (!sv_is_glob(sv) && !sv_is_regexp(sv) && !SvOK(sv))
 
 #define sv_is_string(sv) \
-	(SvTYPE(sv) != SVt_PVGV && \
+	(!sv_is_glob(sv) && !sv_is_regexp(sv) && \
 	 (SvFLAGS(sv) & (SVf_IOK|SVf_NOK|SVf_POK|SVp_IOK|SVp_NOK|SVp_POK)))
 
 /*
@@ -77,7 +94,8 @@ static void whenbodied_peep(pTHX_ OP*);
 static SV *whenbodied_running;
 static HV *stash_whenbodied;
 
-static AV *new_minimal_padlist(void)
+#define new_minimal_padlist() THX_new_minimal_padlist(aTHX)
+static AV *THX_new_minimal_padlist(pTHX)
 {
 	AV *padlist, *pad;
 	pad = newAV();
@@ -90,7 +108,8 @@ static AV *new_minimal_padlist(void)
 	return padlist;
 }
 
-static AV *cv_find_whenbodied(CV *sub)
+#define cv_find_whenbodied(sub) THX_cv_find_whenbodied(aTHX_ sub)
+static AV *THX_cv_find_whenbodied(pTHX_ CV *sub)
 {
 	AV *padlist;
 	AV *argav;
@@ -109,7 +128,8 @@ static AV *cv_find_whenbodied(CV *sub)
 	return NULL;
 }
 
-static AV *cv_force_whenbodied(CV *sub)
+#define cv_force_whenbodied(sub) THX_cv_force_whenbodied(aTHX_ sub)
+static AV *THX_cv_force_whenbodied(pTHX_ CV *sub)
 {
 	AV *padlist;
 	AV *pad, *argav, *wb;
@@ -143,7 +163,8 @@ static AV *cv_force_whenbodied(CV *sub)
 	return wb;
 }
 
-static AV *whenbodied_find_running(CV *sub)
+#define whenbodied_find_running(sub) THX_whenbodied_find_running(aTHX_ sub)
+static AV *THX_whenbodied_find_running(pTHX_ CV *sub)
 {
 	AV *runav = (AV*)whenbodied_running;
 	while(SvTYPE((SV*)runav) == SVt_PVAV) {
@@ -155,7 +176,8 @@ static AV *whenbodied_find_running(CV *sub)
 	return NULL;
 }
 
-static void whenbodied_setup_run(CV *sub, AV *wb)
+#define whenbodied_setup_run(sub, wb) THX_whenbodied_setup_run(aTHX_ sub, wb)
+static void THX_whenbodied_setup_run(pTHX_ CV *sub, AV *wb)
 {
 	AV *runav = newAV();
 	av_extend(runav, 2);
@@ -166,7 +188,9 @@ static void whenbodied_setup_run(CV *sub, AV *wb)
 	whenbodied_running = (SV*)runav;
 }
 
-static void whenbodied_run_actions(CV *sub, AV *wb)
+#define whenbodied_run_actions(sub, wb) \
+	THX_whenbodied_run_actions(aTHX_ sub, wb)
+static void THX_whenbodied_run_actions(pTHX_ CV *sub, AV *wb)
 {
 	SV *subject_ref = sv_2mortal(newRV_inc((SV*)sub));
 	while(av_len(wb) != -1) {
@@ -194,7 +218,8 @@ static void whenbodied_peep(pTHX_ OP*o)
 	LEAVE;
 }
 
-static void when_sub_bodied(CV *sub, CV *action)
+#define when_sub_bodied(sub, action) THX_when_sub_bodied(aTHX_ sub, action)
+static void THX_when_sub_bodied(pTHX_ CV *sub, CV *action)
 {
 	AV *wb;
 	if(!CvROOT(sub) && !CvXSUB(sub)) {
