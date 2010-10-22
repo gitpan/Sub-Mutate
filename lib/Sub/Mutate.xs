@@ -17,6 +17,10 @@
 # define SvSTASH_set(sv, stash) (SvSTASH(sv) = (stash))
 #endif /* !SvSTASH_set */
 
+#ifndef gv_stashpvs
+# define gv_stashpvs(name, flags) gv_stashpvn(""name"", sizeof(name)-1, flags)
+#endif /* !gv_stashpvs */
+
 #define safe_av_fetch(av, key) THX_safe_av_fetch(aTHX_ av, key)
 static SV *THX_safe_av_fetch(pTHX_ AV *av, I32 key)
 {
@@ -31,6 +35,7 @@ static void THX_sv_unbless(pTHX_ SV *sv)
 	if(!SvOBJECT(sv)) return;
 	SvOBJECT_off(sv);
 	if((oldstash = (SV*)SvSTASH(sv))) {
+		PL_sv_objcount--;
 		SvSTASH_set(sv, NULL);
 		SvREFCNT_dec(oldstash);
 	}
@@ -243,7 +248,7 @@ static void THX_when_sub_bodied(pTHX_ CV *sub, CV *action)
 MODULE = Sub::Mutate PACKAGE = Sub::Mutate
 
 BOOT:
-	stash_whenbodied = gv_stashpv("Sub::Mutate::__WHEN_BODIED__", 1);
+	stash_whenbodied = gv_stashpvs("Sub::Mutate::__WHEN_BODIED__", 1);
 	whenbodied_running = &PL_sv_no;
 
 const char *

@@ -14,7 +14,7 @@ sub t3 :lvalue { $x }
 ok !sub_is_lvalue(\&t0);
 SKIP: {
 	skip "pre-5.10 perl might not track lvalueness of undefined sub", 1
-		unless $] >= 5.010;
+		unless "$]" >= 5.010;
 	ok sub_is_lvalue(\&t1);
 }
 ok !sub_is_lvalue(\&t2);

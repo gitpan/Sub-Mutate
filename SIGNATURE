@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.64.
+signed via the Module::Signature module, version 0.66.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -15,29 +15,29 @@ not run its Makefile.PL or Build.PL.
 Hash: SHA1
 
 SHA1 6d486e2bb1e1e331d2a715fdd12b7c8348966db7 .cvsignore
-SHA1 e2311738d5c4def7ea774e5fc823e1d7aab28c9b Build.PL
-SHA1 55399906263bb033155a89c9d7a168a34094f968 Changes
+SHA1 2517b88ffa62536f82f8ec55b1cbb6e82e8b1b47 Build.PL
+SHA1 4243a1791358d353e0f56660d66f9bd1b7cdb499 Changes
 SHA1 b180426d797f04975a46ddee5773747bcd08d5b5 MANIFEST
-SHA1 6d84f73e94ff95f63a63b7652a23a66af7452819 META.yml
+SHA1 c65e4add4020806180ad172d6c986e9a3c5a419f META.yml
 SHA1 9757c2dda70540be30c9d5cfba59e970cc710178 Makefile.PL
 SHA1 7eadff31de324e28d1757211750c469b7376e13a README
 SHA1 edd8c061d480082aa53f89e3112feac1975b27a6 lib/Sub/.cvsignore
-SHA1 4cb324b6de969c067c42a27bc0e9aed8f5e24142 lib/Sub/Mutate.pm
-SHA1 f76e00edf6d1cd8de1fe68bd903f263c08ab5a56 lib/Sub/Mutate.xs
+SHA1 60c3b24c3d8ce6c26b98f20b4497b5aabd157a8b lib/Sub/Mutate.pm
+SHA1 3515842134e65353df525ee45fb6568688038d59 lib/Sub/Mutate.xs
 SHA1 26755b6323d5f4db134bdfe497d182b979e74d45 t/body_type.t
 SHA1 ac4b4e740822fd51411403882b76d4c8ccb0a30a t/closure_role.t
 SHA1 37531a74241b124c25b15fdd5a590e884adfd137 t/is_constant.t
 SHA1 69fbeb4715871dc2bf3225a6e060ef0703ea5850 t/is_debuggable.t
-SHA1 2c15f0865d653db25bc0e0a8ea9ec9c9fd0af593 t/is_lvalue.t
-SHA1 9aaf87aec38ac3b052b14fbe7d402a9dcf571e4f t/is_method.t
-SHA1 0e141eecf3ca4903ef38d9413b5403a9ddb0392f t/pod_cvg.t
-SHA1 74a957cd8b93f25672ecc6aa578a671d084dd343 t/pod_syn.t
+SHA1 c5b2d8f73660e986dbd4581ea0e91cf518151fc0 t/is_lvalue.t
+SHA1 6119402aefb654d01c915acf61cc29639774dc9f t/is_method.t
+SHA1 904d9a4f76525e2303e4b0c168c68230f223c8de t/pod_cvg.t
+SHA1 65c75abdef6f01a5d1588a307f2ddfe2333dc961 t/pod_syn.t
 SHA1 faf72c26422281593677c7ffd0cdbf2e2d45fd98 t/prototype.t
-SHA1 7cfdb858935ccbb52fa06574ec850d107f1c5986 t/when_bodied.t
+SHA1 c26e0c22182f5d1afa57552c4c8f790f1878ed6b t/when_bodied.t
 -----BEGIN PGP SIGNATURE-----
 Version: GnuPG v1.4.9 (GNU/Linux)
 
-iEYEARECAAYFAkxGGfQACgkQOV9mt2VyAVFaUgCeMCJjSQc94zW9ItvK9F0vbEOg
-nSYAn2/YcRqjmVsLdOOEJjq2qhDVTIGq
-=D+Ws
+iEYEARECAAYFAkzCApUACgkQOV9mt2VyAVFdUQCfbQgd1WEt81dulwlZS9sk7mSE
+K3AAn3qp7XGmV0joOvEqYIAp/QN6dHUI
+=zgoN
 -----END PGP SIGNATURE-----

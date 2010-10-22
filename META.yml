@@ -12,6 +12,8 @@ build_requires:
 configure_requires:
   Module::Build: 0
   perl: 5.008
+  strict: 0
+  warnings: 0
 distribution_type: module
 dynamic_config: 0
 generated_by: 'Module::Build version 0.3607'
@@ -23,7 +25,7 @@ name: Sub-Mutate
 provides:
   Sub::Mutate:
     file: lib/Sub/Mutate.pm
-    version: 0.002
+    version: 0.003
 requires:
   Exporter: 0
   XSLoader: 0
@@ -33,4 +35,4 @@ requires:
   warnings: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.002
+version: 0.003

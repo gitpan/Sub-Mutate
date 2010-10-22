@@ -1,3 +1,17 @@
+version 0.003; 2010-10-22
+
+  * bugfix: correctly maintain PL_sv_objcount in when_sub_bodied()
+
+  * in XS, use gv_stashpvs() wherever appropriate
+
+  * use full stricture in test suite
+
+  * in test suite, make all numeric comparisons against $] stringify it
+    first, to avoid architecture-dependent problems with floating point
+    rounding giving it an unexpected numeric value
+
+  * in Build.PL, complete declaration of configure-time requirements
+
 version 0.002; 2010-07-20
 
   * port to Perl 5.11, supporting new first-class regexp objects in

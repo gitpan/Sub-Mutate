@@ -84,7 +84,7 @@ match_acted [];
 eval q{ sub t3 :a4 :a5 { } 1 } or die $@;
 SKIP: {
 	skip "predeclarations cause attribute lossage on pre-5.10 perl", 1
-		unless $] >= 5.010;
+		unless "$]" >= 5.010;
 	match_acted [
 		[ \&t3, "PERL", "a4" ],
 		[ \&t3, "PERL", "a4x" ],
