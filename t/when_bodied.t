@@ -16,24 +16,24 @@ sub action($;$) {
 		}
 	};
 }
-sub match_acted($) {
-	my($expected) = @_;
-	ok @acted == @$expected && !(grep {
+sub match_acted($$) {
+	my($expected, $desc) = @_;
+	ok(@acted == @$expected && !(grep {
 		my $got = $acted[$_];
 		my $exp = $expected->[$_];
 		!($got->[0] == $exp->[0] && $got->[1] eq $exp->[1] &&
 			$got->[2] eq $exp->[2]);
-	} 0..$#acted);
+	} 0..$#acted), $desc);
 }
 
 @acted = ();
 when_sub_bodied(\&sub_body_type, action("0"));
-match_acted [ [ \&sub_body_type, "XSUB", "0" ] ];
+match_acted [ [ \&sub_body_type, "XSUB", "0" ] ], "xsub immediate 0";
 
 @acted = ();
 sub t0 { }
 when_sub_bodied(\&t0, action("1"));
-match_acted [ [ \&t0, "PERL", "1" ] ];
+match_acted [ [ \&t0, "PERL", "1" ] ], "perl immediate 1";
 
 @acted = ();
 when_sub_bodied(\&sub_body_type,
@@ -42,7 +42,7 @@ match_acted [
 	[ \&sub_body_type, "XSUB", "2" ],
 	[ \&sub_body_type, "XSUB", "2x" ],
 	[ \&sub_body_type, "XSUB", "3" ],
-];
+], "xsub immediate 2/3";
 
 @acted = ();
 sub t1 { }
@@ -52,7 +52,7 @@ match_acted [
 	[ \&t1, "PERL", "4" ],
 	[ \&t1, "PERL", "4x" ],
 	[ \&t1, "PERL", "5" ],
-];
+], "perl immediate 4/5";
 
 sub MODIFY_CODE_ATTRIBUTES {
 	shift(@_);
@@ -68,31 +68,45 @@ sub MODIFY_CODE_ATTRIBUTES {
 
 @acted = ();
 eval q{ sub t2 :a0 :a1 { } 1 } or die $@;
-match_acted [
+match_acted "$]" >= 5.015004 ? [
+	[ \&t2, "PERL", "a0" ],
+	[ \&t2, "PERL", "a0x" ],
+	[ \&t2, "PERL", "a0e" ],
+	[ \&t2, "PERL", "a1" ],
+	[ \&t2, "PERL", "a1x" ],
+	[ \&t2, "PERL", "a1e" ],
+] : [
 	[ \&t2, "PERL", "a0" ],
 	[ \&t2, "PERL", "a0x" ],
 	[ \&t2, "PERL", "a1" ],
 	[ \&t2, "PERL", "a1x" ],
 	[ \&t2, "PERL", "a0e" ],
 	[ \&t2, "PERL", "a1e" ],
-];
+], "perl attrib a0/a1";
 
 @acted = ();
 eval q{ sub t3 :a2 :a3; 1 } or die $@;
-match_acted [];
+match_acted [], "undef attrib a2/a3";
 @acted = ();
 eval q{ sub t3 :a4 :a5 { } 1 } or die $@;
 SKIP: {
 	skip "predeclarations cause attribute lossage on pre-5.10 perl", 1
 		unless "$]" >= 5.010;
-	match_acted [
+	match_acted "$]" >= 5.015004 ? [
+		[ \&t3, "PERL", "a4" ],
+		[ \&t3, "PERL", "a4x" ],
+		[ \&t3, "PERL", "a4e" ],
+		[ \&t3, "PERL", "a5" ],
+		[ \&t3, "PERL", "a5x" ],
+		[ \&t3, "PERL", "a5e" ],
+	] : [
 		[ \&t3, "PERL", "a4" ],
 		[ \&t3, "PERL", "a4x" ],
 		[ \&t3, "PERL", "a5" ],
 		[ \&t3, "PERL", "a5x" ],
 		[ \&t3, "PERL", "a4e" ],
 		[ \&t3, "PERL", "a5e" ],
-	];
+	], "perl attrib a4/a5";
 }
 @acted = ();
 eval q{ sub t3 :a6 :a7; 1 } or die $@;
@@ -103,7 +117,7 @@ match_acted [
 	[ \&t3, "PERL", "a7" ],
 	[ \&t3, "PERL", "a7x" ],
 	[ \&t3, "PERL", "a7e" ],
-];
+], "perl immediate a6/a7";
 
 @acted = ();
 sub t4 { }
@@ -121,6 +135,6 @@ match_acted [
 	[ \&t5, "PERL", "9" ],
 	[ \&t4, "PERL", "6x" ],
 	[ \&t4, "PERL", "8" ],
-];
+], "perl immediate 6/7/8/9";
 
 1;

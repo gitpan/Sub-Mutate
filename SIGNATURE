@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.66.
+signed via the Module::Signature module, version 0.68.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -14,16 +14,16 @@ not run its Makefile.PL or Build.PL.
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA1
 
-SHA1 6d486e2bb1e1e331d2a715fdd12b7c8348966db7 .cvsignore
+SHA1 77d6b890bc6adc52b67cb616d606534b050d836f .gitignore
 SHA1 2517b88ffa62536f82f8ec55b1cbb6e82e8b1b47 Build.PL
-SHA1 4243a1791358d353e0f56660d66f9bd1b7cdb499 Changes
-SHA1 b180426d797f04975a46ddee5773747bcd08d5b5 MANIFEST
-SHA1 c65e4add4020806180ad172d6c986e9a3c5a419f META.yml
-SHA1 9757c2dda70540be30c9d5cfba59e970cc710178 Makefile.PL
-SHA1 7eadff31de324e28d1757211750c469b7376e13a README
-SHA1 edd8c061d480082aa53f89e3112feac1975b27a6 lib/Sub/.cvsignore
-SHA1 60c3b24c3d8ce6c26b98f20b4497b5aabd157a8b lib/Sub/Mutate.pm
-SHA1 3515842134e65353df525ee45fb6568688038d59 lib/Sub/Mutate.xs
+SHA1 d202536dc953efb3440ba041798220cd0d384a27 Changes
+SHA1 a5df49841916d77374630ce0f7f15193ef4ea429 MANIFEST
+SHA1 e8bd07fc9a9d801907b0ee24ab089035a71355e1 META.json
+SHA1 0c8514c571f601d7ca28eefb75cdc7e85f2fa5d5 META.yml
+SHA1 b4ffa11257c5d945002293b440bd62a855bbf873 Makefile.PL
+SHA1 cece079e82575511f7fc6f7ddc965f903f335390 README
+SHA1 c5efa202a7368b80918987802029ee10e0b167d4 lib/Sub/Mutate.pm
+SHA1 419906a2dbc6279fad1f5209fff10a3c0721c0de lib/Sub/Mutate.xs
 SHA1 26755b6323d5f4db134bdfe497d182b979e74d45 t/body_type.t
 SHA1 ac4b4e740822fd51411403882b76d4c8ccb0a30a t/closure_role.t
 SHA1 37531a74241b124c25b15fdd5a590e884adfd137 t/is_constant.t
@@ -33,11 +33,11 @@ SHA1 6119402aefb654d01c915acf61cc29639774dc9f t/is_method.t
 SHA1 904d9a4f76525e2303e4b0c168c68230f223c8de t/pod_cvg.t
 SHA1 65c75abdef6f01a5d1588a307f2ddfe2333dc961 t/pod_syn.t
 SHA1 faf72c26422281593677c7ffd0cdbf2e2d45fd98 t/prototype.t
-SHA1 c26e0c22182f5d1afa57552c4c8f790f1878ed6b t/when_bodied.t
+SHA1 8e5567ae95c0aa0a052654cabea5ce273aeeda81 t/when_bodied.t
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.9 (GNU/Linux)
+Version: GnuPG v1.4.10 (GNU/Linux)
 
-iEYEARECAAYFAkzCApUACgkQOV9mt2VyAVFdUQCfbQgd1WEt81dulwlZS9sk7mSE
-K3AAn3qp7XGmV0joOvEqYIAp/QN6dHUI
-=zgoN
+iEYEARECAAYFAk6py2wACgkQOV9mt2VyAVEvEgCeNs/DQCm21BMl499eQQYFQ7Ol
+WZwAnA7qZ0UV+0I0U3K9HoNlFFkosAkn
+=+u2Z
 -----END PGP SIGNATURE-----

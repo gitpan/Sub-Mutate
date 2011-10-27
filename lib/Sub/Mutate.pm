@@ -43,7 +43,7 @@ package Sub::Mutate;
 use warnings;
 use strict;
 
-our $VERSION = "0.003";
+our $VERSION = "0.004";
 
 use parent "Exporter";
 our @EXPORT_OK = qw(
@@ -182,12 +182,14 @@ which must be either a string or C<undef>.
 
 Queues a modification of I<SUB>, to occur when I<SUB> has acquired a body.
 This is required due to an oddity of how Perl constructs Perl-language
-subroutines.  A subroutine object is initially created with no body, and
-then the body is later attached.  Attribute handlers are executed before
-the body is attached, but it is otherwise unusual to see the subroutine
-in that intermediate state.  If the implementation of an attribute can
-only be completed after the body is attached, this function is the way
-to schedule the implementation.
+subroutines.  A subroutine object is initially created with no body,
+and then the body is later attached.  Prior to Perl 5.15.4, attribute
+handlers are executed before the body is attached, so see it in that
+intermediate state.  (From Perl 5.15.4 onwards, attribute handlers are
+executed after the body is attached.)  It is otherwise unusual to see
+the subroutine in that intermediate state.  If the implementation of an
+attribute can only be completed after the body is attached, this function
+is the way to schedule the implementation.
 
 If this function is called when I<SUB> is in the intermediate state, with
 body not yet attached, then I<ACTION> is added to a queue.  Shortly after
@@ -233,7 +235,8 @@ any pending actions are lost.
 
 =head1 SEE ALSO
 
-L<Attribute::Lexical>
+L<Attribute::Lexical>,
+L<B::CallChecker>
 
 =head1 AUTHOR
 
@@ -241,7 +244,7 @@ Andrew Main (Zefram) <zefram@fysh.org>
 
 =head1 COPYRIGHT
 
-Copyright (C) 2009, 2010 Andrew Main (Zefram) <zefram@fysh.org>
+Copyright (C) 2009, 2010, 2011 Andrew Main (Zefram) <zefram@fysh.org>
 
 =head1 LICENSE
 

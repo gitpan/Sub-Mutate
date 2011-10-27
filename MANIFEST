@@ -1,11 +1,11 @@
-.cvsignore
+.gitignore
 Build.PL
 Changes
 MANIFEST
+META.json
 META.yml
 Makefile.PL
 README
-lib/Sub/.cvsignore
 lib/Sub/Mutate.pm
 lib/Sub/Mutate.xs
 t/body_type.t

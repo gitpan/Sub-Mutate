@@ -247,6 +247,8 @@ static void THX_when_sub_bodied(pTHX_ CV *sub, CV *action)
 
 MODULE = Sub::Mutate PACKAGE = Sub::Mutate
 
+PROTOTYPES: DISABLE
+
 BOOT:
 	stash_whenbodied = gv_stashpvs("Sub::Mutate::__WHEN_BODIED__", 1);
 	whenbodied_running = &PL_sv_no;

@@ -1,3 +1,19 @@
+version 0.004; 2011-10-27
+
+  * update documentation and tests for Perl 5.15.4's change in when
+    attribute handlers are executed
+
+  * add B::CallChecker to "see also" list
+
+  * in XS, declare "PROTOTYPES: DISABLE" to prevent automatic generation
+    of unintended prototypes
+
+  * include META.json in distribution
+
+  * convert .cvsignore to .gitignore
+
+  * add MYMETA.json to .gitignore
+
 version 0.003; 2010-10-22
 
   * bugfix: correctly maintain PL_sv_objcount in when_sub_bodied()
