@@ -1,5 +1,5 @@
 This file contains message digests of all files listed in MANIFEST,
-signed via the Module::Signature module, version 0.68.
+signed via the Module::Signature module, version 0.73.
 
 To verify the content in this distribution, first make sure you have
 Module::Signature installed, then type:
@@ -16,17 +16,17 @@ Hash: SHA1
 
 SHA1 77d6b890bc6adc52b67cb616d606534b050d836f .gitignore
 SHA1 2517b88ffa62536f82f8ec55b1cbb6e82e8b1b47 Build.PL
-SHA1 d202536dc953efb3440ba041798220cd0d384a27 Changes
+SHA1 7b3b9512fe85e7693513db310216abfbf2f78b84 Changes
 SHA1 a5df49841916d77374630ce0f7f15193ef4ea429 MANIFEST
-SHA1 e8bd07fc9a9d801907b0ee24ab089035a71355e1 META.json
-SHA1 0c8514c571f601d7ca28eefb75cdc7e85f2fa5d5 META.yml
-SHA1 b4ffa11257c5d945002293b440bd62a855bbf873 Makefile.PL
-SHA1 cece079e82575511f7fc6f7ddc965f903f335390 README
-SHA1 c5efa202a7368b80918987802029ee10e0b167d4 lib/Sub/Mutate.pm
-SHA1 419906a2dbc6279fad1f5209fff10a3c0721c0de lib/Sub/Mutate.xs
+SHA1 f3cd56ec0b02681c01737e755217edf0198b4a3b META.json
+SHA1 c8aa5d066187c01506465eb4639638a589c18318 META.yml
+SHA1 117545dee80871b37963a7dd1bcdd802754e5286 Makefile.PL
+SHA1 fb9b83aeab0302e5c92916b067195622324647f3 README
+SHA1 a63c15fd78738b5af6d865430ec891da0ddd5f48 lib/Sub/Mutate.pm
+SHA1 cabdc30acbad478bb155e67f24e4505b7f2284d1 lib/Sub/Mutate.xs
 SHA1 26755b6323d5f4db134bdfe497d182b979e74d45 t/body_type.t
 SHA1 ac4b4e740822fd51411403882b76d4c8ccb0a30a t/closure_role.t
-SHA1 37531a74241b124c25b15fdd5a590e884adfd137 t/is_constant.t
+SHA1 1801abdbec8872ece5fe5eed980cd4b431373d00 t/is_constant.t
 SHA1 69fbeb4715871dc2bf3225a6e060ef0703ea5850 t/is_debuggable.t
 SHA1 c5b2d8f73660e986dbd4581ea0e91cf518151fc0 t/is_lvalue.t
 SHA1 6119402aefb654d01c915acf61cc29639774dc9f t/is_method.t
@@ -35,9 +35,9 @@ SHA1 65c75abdef6f01a5d1588a307f2ddfe2333dc961 t/pod_syn.t
 SHA1 faf72c26422281593677c7ffd0cdbf2e2d45fd98 t/prototype.t
 SHA1 8e5567ae95c0aa0a052654cabea5ce273aeeda81 t/when_bodied.t
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v1.4.10 (GNU/Linux)
+Version: GnuPG v1.4.12 (GNU/Linux)
 
-iEYEARECAAYFAk6py2wACgkQOV9mt2VyAVEvEgCeNs/DQCm21BMl499eQQYFQ7Ol
-WZwAnA7qZ0UV+0I0U3K9HoNlFFkosAkn
-=+u2Z
+iEYEARECAAYFAlIaY9EACgkQOV9mt2VyAVHQlwCgnOUpBE9j5UW2TfnRBNNxDfJq
+fZcAoI1Hq0Rqoy05FnIHo0V07+V6DAgc
+=jcm1
 -----END PGP SIGNATURE-----

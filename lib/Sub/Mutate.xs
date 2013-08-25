@@ -21,6 +21,15 @@
 # define gv_stashpvs(name, flags) gv_stashpvn(""name"", sizeof(name)-1, flags)
 #endif /* !gv_stashpvs */
 
+#ifdef PadlistARRAY
+# define QUSE_PADLIST_STRUCT 1
+#else /* !PadlistARRAY */
+# define QUSE_PADLIST_STRUCT 0
+typedef AV PADNAMELIST;
+# define PadlistARRAY(pl) ((PAD**)AvARRAY(pl))
+# define PadlistNAMES(pl) (PadlistARRAY(pl)[0])
+#endif /* !PadlistARRAY */
+
 #define safe_av_fetch(av, key) THX_safe_av_fetch(aTHX_ av, key)
 static SV *THX_safe_av_fetch(pTHX_ AV *av, I32 key)
 {
@@ -100,29 +109,42 @@ static SV *whenbodied_running;
 static HV *stash_whenbodied;
 
 #define new_minimal_padlist() THX_new_minimal_padlist(aTHX)
-static AV *THX_new_minimal_padlist(pTHX)
+static PADLIST *THX_new_minimal_padlist(pTHX)
 {
-	AV *padlist, *pad;
+	PADLIST *padlist;
+	PAD *pad;
+	PADNAMELIST *padname;
 	pad = newAV();
 	av_store(pad, 0, &PL_sv_undef);
+#if QUSE_PADLIST_STRUCT
+	Newxz(padlist, 1, PADLIST);
+	Newx(PadlistARRAY(padlist), 2, PAD *);
+#else /* !QUSE_PADLIST_STRUCT */
 	padlist = newAV();
+# if !PERL_VERSION_GE(5,15,3)
 	AvREAL_off(padlist);
+# endif /* < 5.15.3 */
 	av_extend(padlist, 1);
-	av_store(padlist, 0, (SV*)newAV());
-	av_store(padlist, 1, (SV*)pad);
+#endif /* !QUSE_PADLIST_STRUCT */
+	padname = newAV();
+#ifdef AvPAD_NAMELIST_on
+	AvPAD_NAMELIST_on(padname);
+#endif /* AvPAD_NAMELIST_on */
+	PadlistNAMES(padlist) = padname;
+	PadlistARRAY(padlist)[1] = pad;
 	return padlist;
 }
 
 #define cv_find_whenbodied(sub) THX_cv_find_whenbodied(aTHX_ sub)
 static AV *THX_cv_find_whenbodied(pTHX_ CV *sub)
 {
-	AV *padlist;
+	PADLIST *padlist;
 	AV *argav;
 	I32 pos;
 	if(CvDEPTH(sub) != 0) return NULL;
 	padlist = CvPADLIST(sub);
 	if(!padlist) return NULL;
-	argav = (AV*)safe_av_fetch((AV*)*av_fetch(padlist, 1, 0), 0);
+	argav = (AV*)safe_av_fetch(PadlistARRAY(padlist)[1], 0);
 	if(SvTYPE((SV*)argav) != SVt_PVAV) return NULL;
 	for(pos = av_len(argav); pos >= 0; pos--) {
 		SV *v = safe_av_fetch(argav, pos);
@@ -136,12 +158,13 @@ static AV *THX_cv_find_whenbodied(pTHX_ CV *sub)
 #define cv_force_whenbodied(sub) THX_cv_force_whenbodied(aTHX_ sub)
 static AV *THX_cv_force_whenbodied(pTHX_ CV *sub)
 {
-	AV *padlist;
-	AV *pad, *argav, *wb;
+	PADLIST *padlist;
+	PAD *pad;
+	AV *argav, *wb;
 	I32 pos;
 	padlist = CvPADLIST(sub);
 	if(!padlist) goto create_padlist;
-	pad = (AV*)*av_fetch(padlist, 1, 0);
+	pad = PadlistARRAY(padlist)[1];
 	argav = (AV*)safe_av_fetch(pad, 0);
 	if(SvTYPE((SV*)argav) != SVt_PVAV) goto create_argav;
 	for(pos = av_len(argav); pos >= 0; pos--) {
@@ -153,6 +176,7 @@ static AV *THX_cv_force_whenbodied(pTHX_ CV *sub)
 	goto create_whenbodied;
 	create_padlist:
 	CvPADLIST(sub) = padlist = new_minimal_padlist();
+	pad = PadlistARRAY(padlist)[1];
 	create_argav:
 	argav = newAV();
 	av_extend(argav, 0);

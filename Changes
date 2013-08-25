@@ -1,3 +1,17 @@
+version 0.005; 2013-08-25
+
+  * bugfix: avoid memory corruption that could occur in an edge case
+    for when_sub_bodied()
+
+  * update for Perl 5.15.3, where padlists are now AvREAL
+
+  * update for Perl 5.17.4's new pad API
+
+  * update for Perl 5.19.3's tracking of the last named item in a pad
+
+  * in t/is_constant.t, account for Perl 5.19.3 having removed the dodgy
+    constant-sub fudge
+
 version 0.004; 2011-10-27
 
   * update documentation and tests for Perl 5.15.4's change in when
